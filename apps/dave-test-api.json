@@ -4,8 +4,8 @@
   "listen_port": 0,
   "protocol": "",
   "enable_proxy_protocol": false,
-  "api_id": "1",
-  "org_id": "1",
+  "api_id": "100",
+  "org_id": "default",
   "use_keyless": false,
   "use_oauth2": false,
   "use_openid": false,
@@ -19,21 +19,11 @@
     "auth_login_redirect": ""
   },
   "auth": {
+    "auth_header_name": "Authorization",
     "use_param": false,
     "param_name": "",
     "use_cookie": false,
-    "cookie_name": "",
-    "auth_header_name": "Authorization",
-    "use_certificate": false,
-    "validate_signature": false,
-    "signature": {
-      "algorithm": "",
-      "header": "",
-      "secret": "",
-      "allowed_clock_skew": 0,
-      "error_code": 0,
-      "error_message": ""
-    }
+    "cookie_name": ""
   },
   "auth_configs": null,
   "use_basic_auth": false,
