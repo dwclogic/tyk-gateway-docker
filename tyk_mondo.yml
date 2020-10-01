@@ -8,7 +8,7 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: tyk_root
-      MONGO_INITDB_ROOT_PASSWORD: 33r2Y4HE!G&LABm?Zq2+LnGVyTQDwq@$G&V!W$n7k2S8xtk$
+      MONGO_INITDB_ROOT_PASSWORD: v5T4p39LY9BczSPqMeW3McqwK6pWsEwBVM7rmWkCpeUU44sW
 
   mongo-express:
     image: mongo-express
@@ -17,8 +17,8 @@ services:
       - 8081:8081
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: tyk_admin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ExJ-#aYsrLRYRc@DqUbsh3xrX!GzM2n8
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 9hV7AYcDdj7PdveDzTn5fvPckZZ8MGTc
 
 # docker-compose -f tyk_mondo.yml up
 # or
-# docker stack deploy -c tyk_mondo.yml mongo
+# docker stack deploy -c tyk_mongo.yml mongo

@@ -5,7 +5,6 @@ curl http://localhost:8080/hello -i
 # HOT Reload CRITICAL
 curl -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/tyk/reload/group | python -mjson.tool
 
-
 # Make an api via curl...
 curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
   -s \
@@ -66,25 +65,36 @@ curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
   }' http://localhost:8080/tyk/keys/create | python -mjson.tool
 #-response
 {
-    "action": "added",
-    "key": "1bc0690cc2dad4a7c914aba6c539839b8",
-    "key_hash": "d3f0c98a",
-    "status": "ok"
+  "action": "added",
+  "key": "1bc0690cc2dad4a7c914aba6c539839b8",
+  "key_hash": "d3f0c98a",
+  "status": "ok"
 }
 # Dave Test API
 {
-    "action": "added",
-    "key": "166671e73dc5649e29782e6e7cbb7c3e9",
-    "key_hash": "78f6c993",
-    "status": "ok"
+  "action": "added",
+  "key": "166671e73dc5649e29782e6e7cbb7c3e9",
+  "key_hash": "78f6c993",
+  "status": "ok"
 }
 ##---------------------
+# AWS
+{
+  "action": "added",
+  "key": "192581688594c453f95ce3fe574f5cfeb",
+  "key_hash": "a5ec7819",
+  "status": "ok"
+}
 
+# HOT Reload CRITICAL
+curl -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/tyk/reload/group | python -mjson.tool
 
-curl -H "Authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/dave-test-api/ | python -mjson.tool
+#curl -H "Authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/dave-test-api/ | python -mjson.tool
 curl -H "Authorization: 166671e73dc5649e29782e6e7cbb7c3e9" -s http://localhost:8080/dave-test-api/
-curl -H "Authorization: 166671e73dc5649e29782e6e7cbb7c3e9" -s http://localhost:8080/dave-test-api/ -i
+curl -H "Authorization: 192581688594c453f95ce3fe574f5cfeb" -s http://localhost:8080/dave-test-api/ #aws
 
+##---------------------
+##---------------------
 ## Echo West using UUID
 curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
   -s \
@@ -113,14 +123,20 @@ curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
     },
     "proxy": {
       "listen_path": "/echo-west/",
-      "target_url": "http://httpbin.org/",
+      "target_url": "https://echo-west.byu-oit-apimanager-dev.amazon.byu.edu/v1/echo/asdf",
       "strip_listen_path": true
     },
     "active": true
 }' http://localhost:8080/tyk/apis/ | python -mjson.tool
-# Response
+# Response Docker
 #
 #{
+#    "action": "added",
+#    "key": "0E61DF2C-44DC-4BA7-9CA5-31D897AA4C1D",
+#    "status": "ok"
+#}
+# Response AWS
+# {
 #    "action": "added",
 #    "key": "0E61DF2C-44DC-4BA7-9CA5-31D897AA4C1D",
 #    "status": "ok"
@@ -144,7 +160,9 @@ curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
       "0E61DF2C-44DC-4BA7-9CA5-31D897AA4C1D": {
         "api_id": "0E61DF2C-44DC-4BA7-9CA5-31D897AA4C1D",
         "api_name": "Echo West",
-        "versions": ["Default"]
+        "versions": [
+          "Default"
+          ]
       }
     },
     "meta_data": {}
@@ -156,7 +174,19 @@ curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
 #    "key_hash": "f9872867",
 #    "status": "ok"
 #}
+# AWS
+# {
+#    "action": "added",
+#    "key": "1c1c76c6a3fb147959cdfad8a5e031010",
+#    "key_hash": "88e901bd",
+#    "status": "ok"
+#}
 
+# HOT Reload CRITICAL
+curl -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/tyk/reload/group | python -mjson.tool
+curl -H "Authorization: 1c1c76c6a3fb147959cdfad8a5e031010" -s http://localhost:8080/echo-west/ | python -mjson.tool
+
+# ----------------
 # ----------------
 ## Echo East using UUID
 curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
@@ -197,6 +227,12 @@ curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
 #    "key": "5BE3ADFD-3E4D-4592-B8BC-527F3A338EB7",
 #    "status": "ok"
 #}
+# AWS
+# {
+#    "action": "added",
+#    "key": "5BE3ADFD-3E4D-4592-B8BC-527F3A338EB7",
+#    "status": "ok"
+#}
 
 # get the Access Token
 curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
@@ -229,7 +265,19 @@ curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
 #    "key_hash": "61f0ef3c",
 #    "status": "ok"
 #}
+# AWS
+# {
+#    "action": "added",
+#    "key": "1a755e446078f468985baa1c3af6cb219",
+#    "key_hash": "07ada0cf",
+#    "status": "ok"
+#}
 
+# HOT Reload CRITICAL
+curl -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/tyk/reload/group | python -mjson.tool
+curl -H "Authorization: 1a755e446078f468985baa1c3af6cb219" -s http://localhost:8080/echo-east/ | python -mjson.tool
+
+# ----------------
 # ----------------
 ## Echo JoshLocal using UUID
 curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
@@ -270,6 +318,12 @@ curl -v -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
 #    "key": "2710CFB6-40AA-4E3A-AE11-9456BF3E0E1F",
 #    "status": "ok"
 #}
+# AWS
+# {
+#    "action": "added",
+#    "key": "2710CFB6-40AA-4E3A-AE11-9456BF3E0E1F",
+#    "status": "ok"
+#}
 
 # get the Access Token
 curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
@@ -302,6 +356,14 @@ curl -X POST -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" \
 #    "key_hash": "bc65f1d8",
 #    "status": "ok"
 #}
+# AWS
+# {
+#    "action": "added",
+#    "key": "118f80271e85d4dd6921bed9f57b9094a",
+#    "key_hash": "ea2567da",
+#    "status": "ok"
+#}
 
-
-
+# HOT Reload CRITICAL
+curl -H "x-tyk-authorization: Zls7rrBtx7hwDfk2G6rSJUskBZc31D8I" -s http://localhost:8080/tyk/reload/group | python -mjson.tool
+curl -H "Authorization: 118f80271e85d4dd6921bed9f57b9094a" -s http://localhost:8080/echo-josh/ | python -mjson.tool
